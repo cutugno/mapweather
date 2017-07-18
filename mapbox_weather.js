@@ -86,13 +86,13 @@ function getToken(callback) {
 function build(token) {
 
 	/* creazione mappa e sue funzioni */
-	function createMap(user_lng,user_lat,token) {		
+	function createMap(lng,lat,token) {		
 		mapboxgl.accessToken = token;
 		// init mappa
 		var map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/mapbox/outdoors-v9',
-			center: [user_lng,user_lat], // centro su utente o valori fallback
+			center: [lng,lat], // centro su utente o valori fallback
 			zoom: 13
 		});
 		// input geocoding
@@ -109,7 +109,7 @@ function build(token) {
 		});
 		map.addControl(geolocate_control);					
 
-		// marker
+		// set marker e prima chiamata 
 		map.on('load', function() {
 		    map.addSource('single-point', {
 		        "type": "geojson",
@@ -128,6 +128,25 @@ function build(token) {
 		            "circle-color": "#007cbf"
 		        }
 		    });
+		    // chiamo geocode mapbox
+			var data=askGeocoding(lng,lat,function(data){	
+				if (data!=="error")	{
+					var luogo=data.features[0];							
+					$(".mapboxgl-ctrl-geocoder input").val(luogo.place_name); // setto geocoder con click
+					map.getSource('single-point').setData(luogo.geometry);
+					// chiamo darksky
+					askWeather(lng,lat,function(meteo){
+						if (meteo!=="error") {	
+							$("#luogo").html(luogo.place_name);									
+							displayWeather(meteo);
+						}else{
+							console.log("Errore meteo");
+						}
+					}); 
+				}else{
+					console.log("Errore geocoding");
+				}
+			}); 		
 		});
 
 		// click su mappa
@@ -138,7 +157,7 @@ function build(token) {
 				center: [lng,lat],
 				zoom: 13
 			});
-			// chiamo geocode mapbox
+			// chiamo geocode mapb
 			var data=askGeocoding(lng,lat,function(data){	
 				if (data!=="error")	{
 					var luogo=data.features[0];							
