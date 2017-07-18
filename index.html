@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>MAPBOX WEATHER</title>		
+		<!-- mapbox css-->
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+		<!-- mapbox geocoder css-->
+		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.css' type='text/css' />		
+	</head>
+	
+	<body>
+
+        <div id='map' style='width: 900px; height: 600px;'></div>
+        
+        <div id='results' style="display:none">
+        	<h3 id="luogo"></h3>
+			<canvas id="icon" width="45" height="45" style="vertical-align: middle"></canvas><br />
+			<span id="summary" style="font-weight: bold"></span><br />
+			<span id="temperature" style="font-weight: bold"></span>°C<br /><br />
+			<span>Prossime ore: </span><canvas id="icon_hourly" width="16" height="16"></canvas> <span id="hourly"></span><br />
+			<span>Prossimi giorni: </span><canvas id="icon_daily" width="16" height="16"></canvas> <span id="daily"></span>
+		</div>
+
+		<!-- jquery -->
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>	
+		<!-- mapbox js -->
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>	
+		<!-- mapbox geocoder js -->
+		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.min.js'></script>
+		<!-- skycons -->
+		<script type="text/javascript" src='skycons.js'></script>
+		<script type="text/javascript" src='mapbox_weather.js'></script>		
+	</body>
+</html>       
