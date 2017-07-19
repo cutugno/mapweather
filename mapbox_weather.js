@@ -9,6 +9,12 @@
 */
 
 $(function() {
+	var url="server/?test";
+	$.get(url,function(resp){
+		console.log(resp);
+		exit();
+	});
+
 	var token;
 	if (navigator.geolocation){
 		// leggo token...
