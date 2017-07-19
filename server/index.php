@@ -22,4 +22,10 @@
 			break;
 	}
 
+	function writelog($content) {
+		$handle=fopen("log/mapweather.log","a+");
+		fwrite($handle,$content);
+		fclose($handle);
+	}
+
 ?>
