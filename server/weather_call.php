@@ -7,14 +7,9 @@ $cache=new Memcached();
 $cache->addServer("127.0.0.1", 11211);
 $cache_key="weather_".$_POST['lng']."_".$_POST['lat'];
 
-echo file_get_contents("weather.json");
-
-/*
-
 // controllo risultato in cache
 if ($cached=$cache->get($cache_key)) {
 	echo $cached;
-	writelog("cached weather: $cached");
 	exit();
 }
 
@@ -37,12 +32,9 @@ if ($result) {
 	// salvo in cache
 	$cache->set($cache_key,$result,1800);
 	echo $result;
-	writelog("weather: $result");
 }else{
 	http_response_code(500);
 	echo $error;
 }
-
-*/
 
 ?>

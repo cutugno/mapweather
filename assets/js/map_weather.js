@@ -12,13 +12,39 @@
 var fallback_lng=12.501827;
 var fallback_lat=41.900993;
 var token;
+var tpl_hourly_detail=$("#tpl_hourly_detail").html();
+var tpl_daily_detail=$("#tpl_daily_detail").html();
 
 function unixToTime(ts) {
-	var date = new Date(ts*1000);
-	// Hours part from the timestamp
+	var date = new Date(ts*1000); // in millisecondi
 	var hours = date.getHours();
 	var formatted_time=hours+":00";
 	return formatted_time;
+}
+
+function unixToDate(ts) {
+	var date = new Date(ts*1000);
+	var day = date.getDate();
+	var month = date.getMonth() + 1;
+	var formatted_date=day+"/"+month;
+	return formatted_date;
+}
+
+function unixToDay(ts) {
+	var date = new Date(ts*1000);
+	var daynum = date.getDay();
+	var day_mapper=["DOM","LUN","MAR","MER","GIO","VEN","SAB"];
+	return day_mapper[daynum];
+}
+
+function showHourlyDetails() {
+	$("#daily_details").hide();
+	$("#hourly_details").show();
+}
+
+function showDailyDetails() {
+	$("#hourly_details").hide();
+	$("#daily_details").show();
 }
 
 $(function() {
@@ -54,16 +80,52 @@ function displayWeather (meteo,luogo) {
 	skycons.add("icon", meteo.currently.icon);
 	skycons.add("icon_hourly", meteo.hourly.icon);
 	skycons.add("icon_daily", meteo.daily.icon);
-	skycons.play();
 	$("#results").show();
+	$("#hourly_details").hide();
+	$("#daily_details").hide();
+	$("#hourly_details_list").html("");
+	$("#daily_details_list").html("");
 
 	// dettagli orari
 	var hourly_details=meteo.hourly.data;
-	console.log(hourly_details);
 	$.each(hourly_details,function(index,value) {
 		if (index<=23) { // solo 24 ore		
+			var detail=tpl_hourly_detail;
 			var time=unixToTime(value.time);
+			detail=detail.replace("%index%",index);
+			detail=detail.replace("%time%",time);
+			detail=detail.replace("%summary%",value.summary);
+			detail=detail.replace("%temperature%",value.temperature);
+			detail=detail.replace("%apparentTemperature%",value.apparentTemperature);
+			detail=detail.replace("%precipProbability%",value.precipProbability);
+			detail=detail.replace("%precipIntensity%",value.precipIntensity);
+			$("#hourly_details_list").append(detail);
 			skycons.add("icon_hourly_detail_"+index,value.icon);
+			skycons.play(); // attivo tutte le icone, anche quelle del sommario
+		}
+	});
+
+	// dettagli giorni
+	var daily_details=meteo.daily.data;
+	$.each(daily_details,function(index,value) {
+		if (index<=6) { // solo 7 giorni	
+			var detail=tpl_daily_detail;
+			var date=unixToDate(value.time);
+			var day=unixToDay(value.time);
+			detail=detail.replace("%index%",index);
+			detail=detail.replace("%day%",day);
+			detail=detail.replace("%date%",date);
+			detail=detail.replace("%summary%",value.summary);
+			detail=detail.replace("%temperatureMin%",value.temperatureMin);
+			detail=detail.replace("%temperatureMax%",value.temperatureMax);
+			detail=detail.replace("%apparentTemperature%",value.apparentTemperature);
+			detail=detail.replace("%apparentTemperatureMin%",value.apparentTemperatureMin);
+			detail=detail.replace("%apparentTemperatureMax%",value.apparentTemperatureMax);
+			detail=detail.replace("%precipProbability%",value.precipProbability);
+			detail=detail.replace("%precipIntensity%",value.precipIntensity);
+			$("#daily_details_list").append(detail);
+			skycons.add("icon_daily_detail_"+index,value.icon);
+			skycons.play(); // attivo tutte le icone, anche quelle del sommario
 		}
 	});
 }		

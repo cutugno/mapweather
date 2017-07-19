@@ -14,11 +14,27 @@
 		body {
 			margin-top:10px;
 		}
-		#results .media {
+		div.spacer {
+			margin-top:10px;
+		}
+		div.title {
+			padding:10px;
+		}
+		#map {
+			width:100%;
+			height:400px;
+		}
+		#results .media, #hourly_details .media, #daily_details .media {
 			border: 1px solid #ddd;
 		}
-		#results .media-left, #results .media-body {
+		#hourly_details .media, #daily_details .media {
+			margin-top:0;
+		}
+		#results .media-left, #results .media-body, #hourly_details .media-left, #hourly_details .media-body, #daily_details .media-left, #daily_details .media-body {
 			padding:10px;
+		}
+		#hourly_details .media-left, #daily_details .media-left {
+			padding-top:0;
 		}
 		#results canvas {
 			vertical-align: middle;
@@ -29,7 +45,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-6">
-					<div id='map' style='width: 900px; height: 600px;'></div>
+					<div id="map"></div>
 				</div>
 				<div class="col-md-6">
 					<div class="row">
@@ -50,26 +66,59 @@
 								</div>			        	
 							</div>	
 						</div>
-						<div class="col-xs-12">
-							<div id="details">
-								<div id="hourly_details">
-									<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-									  <div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="headingOne">
-									      <h4 class="panel-title">
-									        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-									          <canvas id="icon_hourly_detail_%id%" width=16 height=16>
-									        </a>
-									      </h4>
-									    </div>
-									    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-									      <div class="panel-body">
-									        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-									      </div>
-									    </div>
-									  </div>
+						
+						<!-- dettagli orari -->
+						<div class="col-xs-12">							
+							<div id="hourly_details" style="display:none">
+								<div class="spacer"></div>
+								<div class="title bg-warning">
+									<h4>Prossime 24 ore</h4>
+								</div>
+								<div id="hourly_details_list">
+									<!-- template ora -->
+									<div id="tpl_hourly_detail" style="display:none">
+										<div class="media">
+										  <div class="media-left media-middle text-center">
+										    <canvas id="icon_hourly_detail_%index%" width="20" height="20"></canvas>
+										    <span style="font-weight: bold">%time%</span><br />
+										  </div>
+										  <div class="media-body">
+										    <h4 class="media-heading">%summary%</h4>
+										    <p>Temperatura: %temperature% °C | Temperatura percepita: %apparentTemperature% °C | Probabilità pioggia: %precipProbability%% | Intensità pioggia: %precipIntensity%
+										    </p>
+										  </div>
+										</div>	
 									</div>
-								</div>								
+									<!-- fine template ora -->
+								</div>	
+							</div>
+						</div>
+
+						<!-- dettagli giornalieri -->
+						<div class="col-xs-12">
+							<div id="daily_details" style="display:none">
+								<div class="spacer"></div>
+								<div class="title bg-warning">
+									<h4>Prossimi 7 giorni</h4>
+								</div>
+								<div id="daily_details_list">
+									<!-- template giorno -->
+									<div id="tpl_daily_detail" style="display:none">
+										<div class="media">
+										  <div class="media-left media-middle text-center">
+										    <span style="font-weight: bold">%day%</span><br />
+										    <canvas id="icon_daily_detail_%index%" width="25" height="25"></canvas>
+										    <span style="font-weight: bold">%date%</span><br />
+										  </div>
+										  <div class="media-body">
+										    <h4 class="media-heading">%summary%</h4>
+										    <p>Minima: %temperatureMin% °C | Massima: %temperatureMax% °C | Minima percepita: %apparentTemperatureMin% °C | Massima percepita: %apparentTemperatureMax% °C | Probabilità pioggia: %precipProbability%% | Intensità pioggia: %precipIntensity%
+										    </p>
+										  </div>
+										</div>	
+									</div>
+									<!-- fine template ora -->
+								</div>	
 							</div>
 						</div>
 					</div>
