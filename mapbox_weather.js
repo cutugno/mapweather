@@ -199,7 +199,16 @@ function build(token) {
 		geolocate_control.on('geolocate', function(position) {
 			var lng=position.coords.longitude;
 			var lat=position.coords.latitude;
-			console.log(position);
+			map.getSource('single-point').setData(luogo.geometry);	
+			// chiamo darksky					 
+			askWeather(lng,lat,function(meteo){
+				if (meteo!=="error") {	
+					$("#luogo").html(luogo.place_name);									
+					displayWeather(meteo);
+				}else{
+					console.log("Errore meteo");
+				}
+			}); 			
 		});
 	};
 
