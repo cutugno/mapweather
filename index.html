@@ -6,24 +6,62 @@
 		<!-- mapbox css-->
 		<link href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
 		<!-- mapbox geocoder css-->
-		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.css' type='text/css' />		
+		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.css' type='text/css' />
+		<!-- bootstrap css -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">		
 	</head>
+	<style>
+		body {
+			margin-top:10px;
+		}
+		#results .media {
+			border: 1px solid #ddd;
+		}
+		#results .media-left, #results .media-body {
+			padding:10px;
+		}
+		#results canvas {
+			vertical-align: middle;
+		}
+	</style>
 	
 	<body>
-
-        <div id='map' style='width: 900px; height: 600px;'></div>
-        
-        <div id='results' style="display:none">
-        	<h3 id="luogo"></h3>
-			<canvas id="icon" width="45" height="45" style="vertical-align: middle"></canvas><br />
-			<span id="summary" style="font-weight: bold"></span><br />
-			<span id="temperature" style="font-weight: bold"></span>°C<br /><br />
-			<span>Prossime ore: </span><canvas id="icon_hourly" width="16" height="16"></canvas> <span id="hourly"></span><br />
-			<span>Prossimi giorni: </span><canvas id="icon_daily" width="16" height="16"></canvas> <span id="daily"></span>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6">
+					<div id='map' style='width: 900px; height: 600px;'></div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-xs-12">
+							<div id="results" style="display:none">
+								<div class="media">
+								  <div class="media-left media-middle bg-info text-center">
+								    <canvas id="icon" width="45" height="45"></canvas>
+								    <span id="summary" style="font-weight: bold"></span><br />
+									<span id="temperature" style="font-weight: bold"></span>°C<br />
+								  </div>
+								  <div class="media-body">
+								    <h4 class="media-heading" id="luogo"></h4>
+								   
+									<span><strong>Prossime ore:</strong> </span><canvas id="icon_hourly" width="16" height="16"></canvas> <span id="hourly"></span> <a href="#" onClick="showHourlyDetails()">Dettagli</a><br />
+									<span><strong>Prossimi giorni: </strong></span><canvas id="icon_daily" width="16" height="16"></canvas> <span id="daily"></span> <a href="#" onClick="showDailyDetails()">Dettagli</a>
+								  </div>
+								</div>			        	
+							</div>	
+						</div>
+						<div class="col-xs-12">
+							<div id="details"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<!-- jquery -->
+        
+		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>	
+		<!-- bootstrap js -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<!-- mapbox js -->
 		<script src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>	
 		<!-- mapbox geocoder js -->

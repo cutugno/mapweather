@@ -8,8 +8,12 @@
 
 */
 
+// coordinate default per centro mappa
+var fallback_lng=12.501827;
+var fallback_lat=41.900993;
+var token;
+
 $(function() {
-	var token;
 	if (navigator.geolocation){
 		// leggo token...
 		askToken(function(token){
@@ -34,7 +38,7 @@ $(function() {
 function displayWeather (meteo,luogo) {
 	$("#luogo").html(luogo);
 	$("#summary").html(meteo.currently.summary);
-	$("#temperature").html(meteo.currently.temperature);
+	$("#temperature").html(meteo.currently.temperature); // aggiungere cambio colore con temperatura
 	$("#hourly").html(meteo.hourly.summary);
 	$("#daily").html(meteo.daily.summary);	
 	var skycons = new Skycons({"color": "black"}); // icone					
@@ -47,7 +51,6 @@ function displayWeather (meteo,luogo) {
 
 /* darksky meteo call */
 function askWeather (lng,lat,callback) {
-	//var url='weather_call.php';
 	var url='server/?weather';
 	var dati='lat='+lat+'&lng='+lng;
 	$.post(url,dati,function(resp){
@@ -85,7 +88,6 @@ function askToken(callback) {
 
 /* imposto mappa e geolocalizzazione */
 function build(token) {
-
 	/* creazione mappa e sue funzioni */
 	function createMap(lng,lat,token) {		
 		mapboxgl.accessToken = token;
@@ -224,15 +226,13 @@ function build(token) {
 	 	console.log("Utente geolocalizzato");
 		var latitude = position.coords.latitude;
 		var longitude = position.coords.longitude;
-		createMap(longitude,latitude,token);
+		createMap(longitude,latitude,token); // init mappa con centro posizione utente
 	};
 
 	function geolocateError(err) {
 	 	if (err.code == err.PERMISSION_DENIED) {
 	    	console.log("Geolocalizzazione rifiutata, uso valori di default");
-	  		var fallback_lng=12.501827;
- 			var fallback_lat=41.900993;
- 			createMap(fallback_lng,fallback_lat,token);
+ 			createMap(fallback_lng,fallback_lat,token); // init mappa con centro default
 		};
 	};
 
