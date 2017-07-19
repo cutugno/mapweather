@@ -14,6 +14,7 @@
 		body {
 			margin-top:10px;
 		}
+		#map { width:100%; height:400px; }
 		#results .media {
 			border: 1px solid #ddd;
 		}
@@ -23,13 +24,19 @@
 		#results canvas {
 			vertical-align: middle;
 		}
+		.details {
+			margin-top:20px;
+		}
+		.details > div {
+			padding:10px;
+		}
 	</style>
 	
 	<body>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-6">
-					<div id='map' style='width: 900px; height: 600px;'></div>
+					<div id="map"></div>
 				</div>
 				<div class="col-md-6">
 					<div class="row">
@@ -51,7 +58,12 @@
 							</div>	
 						</div>
 						<div class="col-xs-12">
-							<div id="details"></div>
+							<div class="details bg-warning" id="hourly_details" style="/*display:none">
+								<div><h4>Prossime 24 ore</h4></div>
+							</div>
+							<div class="details bg-warning" id="daily_details" style="display:none">
+								<div><h4>Prossimi 7 giorni</h4></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -68,6 +80,6 @@
 		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.min.js'></script>
 		<!-- skycons -->
 		<script type="text/javascript" src='assets/js/skycons.js'></script>
-		<script type="text/javascript" src='assets/js/mapbox_weather.js'></script>		
+		<script type="text/javascript" src='assets/js/map_weather.js'></script>		
 	</body>
 </html>       
