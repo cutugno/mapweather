@@ -13,6 +13,14 @@ var fallback_lng=12.501827;
 var fallback_lat=41.900993;
 var token;
 
+function unixToTime(ts) {
+	var date = new Date(ts*1000);
+	// Hours part from the timestamp
+	var hours = date.getHours();
+	var formatted_time=hours+":00";
+	return formatted_time;
+}
+
 $(function() {
 	if (navigator.geolocation){
 		// leggo token...
@@ -36,6 +44,7 @@ $(function() {
 
 /* visualizzazione meteo */
 function displayWeather (meteo,luogo) {
+	// sommario
 	$("#luogo").html(luogo);
 	$("#summary").html(meteo.currently.summary);
 	$("#temperature").html(meteo.currently.temperature); // aggiungere cambio colore con temperatura
@@ -47,6 +56,16 @@ function displayWeather (meteo,luogo) {
 	skycons.add("icon_daily", meteo.daily.icon);
 	skycons.play();
 	$("#results").show();
+
+	// dettagli orari
+	var hourly_details=meteo.hourly.data;
+	console.log(hourly_details);
+	$.each(hourly_details,function(index,value) {
+		if (index<=23) { // solo 24 ore		
+			var time=unixToTime(value.time);
+			skycons.add("icon_hourly_detail_"+index,value.icon);
+		}
+	});
 }		
 
 /* darksky meteo call */
