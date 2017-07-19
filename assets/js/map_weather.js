@@ -36,7 +36,6 @@ $(function() {
 
 /* visualizzazione meteo */
 function displayWeather (meteo,luogo) {
-	console.log(meteo);
 	$("#luogo").html(luogo);
 	$("#summary").html(meteo.currently.summary);
 	$("#temperature").html(meteo.currently.temperature); // aggiungere cambio colore con temperatura

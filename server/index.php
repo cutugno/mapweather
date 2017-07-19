@@ -4,12 +4,6 @@
 
 	if (!isset($_GET)) die();
 
-	function write_log($content) {
-		$handle=fopen(FILENAME,"a+");
-		fwrite($handle,$content);
-		fclose($handle);
-	}
-
 	$route=array_keys($_GET)[0];
 
 	switch ($route) {

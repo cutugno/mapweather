@@ -10,7 +10,6 @@ $cache_key="weather_".$_POST['lng']."_".$_POST['lat'];
 // controllo risultato in cache
 if ($cached=$cache->get($cache_key)) {
 	echo $cached;
-	write_log($cached);
 	exit();
 }
 
@@ -33,7 +32,6 @@ if ($result) {
 	// salvo in cache
 	$cache->set($cache_key,$result,1800);
 	echo $result;
-	write_log($result);
 }else{
 	http_response_code(500);
 	echo $error;
