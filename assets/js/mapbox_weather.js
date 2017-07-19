@@ -1,4 +1,4 @@
-/*  mapbox darksky weather!
+/*  mapbox weather!
 
 	dipendenze:
 		jQuery

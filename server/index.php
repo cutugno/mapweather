@@ -1,7 +1,5 @@
 <?php
 
-	define(FILENAME,"log/mapweather.log");
-
 	if (!isset($_GET)) die();
 
 	$route=array_keys($_GET)[0];
