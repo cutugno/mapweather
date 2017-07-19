@@ -4,6 +4,22 @@
 
 	$route=array_keys($_GET)[0];
 
-	echo $route;
+	switch ($route) {
+		case "flush":
+			require_once "flush_call.php";
+			break;
+
+		case "weather":
+			require_once "weather_call.php";
+			break;
+
+		case "geocode":
+			require_once "geocode_call.php";
+			break;
+
+		case "token":
+			require_once"token_call.php";
+			break;
+	}
 
 ?>

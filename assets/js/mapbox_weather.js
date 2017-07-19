@@ -9,16 +9,10 @@
 */
 
 $(function() {
-	var url="server/?test";
-	$.get(url,function(resp){
-		console.log(resp);
-		exit();
-	});
-
 	var token;
 	if (navigator.geolocation){
 		// leggo token...
-		getToken(function(token){
+		askToken(function(token){
 			if (token!=="error") {
 				// ... e vai!
 				build(token);
@@ -53,7 +47,8 @@ function displayWeather (meteo,luogo) {
 
 /* darksky meteo call */
 function askWeather (lng,lat,callback) {
-	var url='weather_call.php';
+	//var url='weather_call.php';
+	var url='server/?weather';
 	var dati='lat='+lat+'&lng='+lng;
 	$.post(url,dati,function(resp){
 		var meteo=JSON.parse(resp);
@@ -66,7 +61,7 @@ function askWeather (lng,lat,callback) {
 
 /* mapbox geocoding call */
 function askGeocoding(lng,lat,callback) {
-	var url='geocode_call.php';
+	var url='server/?geocode';
 	var dati='lat='+lat+'&lng='+lng;				
 	$.post(url,dati,function(resp){
 		var luogo=JSON.parse(resp);
@@ -78,8 +73,8 @@ function askGeocoding(lng,lat,callback) {
 };
 
 /* token call */
-function getToken(callback) {
-	var url='token.php';
+function askToken(callback) {
+	var url='server/?token';
 	$.get(url,function(resp){
 		callback(resp);
 	})
