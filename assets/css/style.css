@@ -1,0 +1,84 @@
+body {
+	margin-top:10px;
+}
+div.spacer {
+	margin-top:10px;
+}
+div.title {
+	padding:10px;
+}
+#map {
+	width:100%;
+	height:400px;
+}
+#results .media, #hourly_details .media, #daily_details .media {
+	border: 1px solid #ddd;
+}
+#hourly_details .media, #daily_details .media {
+	margin-top:0;
+}
+#results .media-left, #results .media-body, #hourly_details .media-left, #hourly_details .media-body, #daily_details .media-left, #daily_details .media-body {
+	padding:10px;
+}
+#hourly_details .media-left, #daily_details .media-left {
+	padding-top:0;
+}
+#results canvas {
+	vertical-align: middle;
+}
+
+/* logo */
+#logo {
+	float:left;
+	margin-right:5px;
+	width:40px;
+	height:40px;
+}
+#txtlogo {
+	font-family: 'Holtwood One SC', serif;
+	font-size:28px
+}
+@media screen and (max-width: 991px) {
+    #logo{
+    	width:90px;
+    	height:90px;
+    }
+    #txtlogo{
+    	font-size: 65px
+    }
+}
+.spin {
+	-webkit-animation:spin 10s linear infinite;
+	-moz-animation:spin 10s linear infinite;
+	animation:spin 10s linear infinite;
+}
+.counter-spin {
+	-webkit-animation:counter-spin 10s linear infinite;
+	-moz-animation:counter-spin 10s linear infinite;
+	animation:counter-spin 10s linear infinite;
+}
+@-moz-keyframes spin { 
+	0% { -moz-transform: rotate(0deg); } 
+	100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes spin { 
+	0% { -webkit-transform: rotate(0deg); } 
+	100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes spin { 
+	0% { transform: rotate(0deg); } 
+	100% { transform: rotate(360deg); } 
+}
+
+@-moz-keyframes counter-spin { 
+	0% { -moz-transform: rotate(0deg); } 
+	100% { -moz-transform: rotate(-360deg); } 
+}
+@-webkit-keyframes counter-spin { 
+	0% { -webkit-transform: rotate(0deg); } 
+	100% { -webkit-transform: rotate(-360deg); } 
+}
+@keyframes counter-spin { 
+	0% { transform: rotate(0deg); } 
+	100% { transform: rotate(-360deg); } 
+}

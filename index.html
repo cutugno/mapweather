@@ -4,99 +4,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>MAPBOX WEATHER</title>		
 		<!-- mapbox css-->
-		<link href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+		<link href="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css" rel="stylesheet">
 		<!-- mapbox geocoder css-->
-		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.css' type='text/css' />
+		<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.css" type="text/css">
 		<!-- bootstrap css -->
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">	
-		<link href="https://fonts.googleapis.com/css?family=Holtwood+One+SC" rel="stylesheet">	
+		<link href="https://fonts.googleapis.com/css?family=Holtwood+One+SC" rel="stylesheet">
+		<link rel="stylesheet" href="assets/css/style.css" type="text/css">
 	</head>
-	<style>
-		body {
-			margin-top:10px;
-		}
-		div.spacer {
-			margin-top:10px;
-		}
-		div.title {
-			padding:10px;
-		}
-		#map {
-			width:100%;
-			height:400px;
-		}
-		#results .media, #hourly_details .media, #daily_details .media {
-			border: 1px solid #ddd;
-		}
-		#hourly_details .media, #daily_details .media {
-			margin-top:0;
-		}
-		#results .media-left, #results .media-body, #hourly_details .media-left, #hourly_details .media-body, #daily_details .media-left, #daily_details .media-body {
-			padding:10px;
-		}
-		#hourly_details .media-left, #daily_details .media-left {
-			padding-top:0;
-		}
-		#results canvas {
-			vertical-align: middle;
-		}
-
-		/* logo */
-		#logo {
-			float:left;
-			margin-right:5px;
-			width:40px;
-			height:40px;
-		}
-		#txtlogo {
-			font-family: 'Holtwood One SC', serif;
-			font-size:28px
-		}
-		@media screen and (max-width: 991px) {
-		    #logo{
-		    	width:90px;
-		    	height:90px;
-		    }
-		    #txtlogo{
-		    	font-size: 65px
-		    }
-		}
-		.spin {
-			-webkit-animation:spin 10s linear infinite;
-			-moz-animation:spin 10s linear infinite;
-			animation:spin 10s linear infinite;
-		}
-		.counter-spin {
-			-webkit-animation:counter-spin 10s linear infinite;
-			-moz-animation:counter-spin 10s linear infinite;
-			animation:counter-spin 10s linear infinite;
-		}
-		@-moz-keyframes spin { 
-			0% { -moz-transform: rotate(0deg); } 
-			100% { -moz-transform: rotate(360deg); } 
-		}
-		@-webkit-keyframes spin { 
-			0% { -webkit-transform: rotate(0deg); } 
-			100% { -webkit-transform: rotate(360deg); } 
-		}
-		@keyframes spin { 
-			0% { transform: rotate(0deg); } 
-			100% { transform: rotate(360deg); } 
-		}
-		
-		@-moz-keyframes counter-spin { 
-			0% { -moz-transform: rotate(0deg); } 
-			100% { -moz-transform: rotate(-360deg); } 
-		}
-		@-webkit-keyframes counter-spin { 
-			0% { -webkit-transform: rotate(0deg); } 
-			100% { -webkit-transform: rotate(-360deg); } 
-		}
-		@keyframes counter-spin { 
-			0% { transform: rotate(0deg); } 
-			100% { transform: rotate(-360deg); } 
-		}
-	</style>
+	
 	
 	<body>
 		<div class="container-fluid">
@@ -196,12 +112,12 @@
 		<!-- bootstrap js -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<!-- mapbox js -->
-		<script src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>	
+		<script src="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js"></script>	
 		<!-- mapbox geocoder js -->
-		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.min.js'></script>
+		<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.min.js"></script>
 		<!-- skycons -->
-		<script type="text/javascript" src='assets/js/skycons.js'></script>
-		<script type="text/javascript" src='assets/js/logo.js'></script>		
-		<script type="text/javascript" src='assets/js/map_weather.js'></script>		
+		<script type="text/javascript" src="assets/js/skycons.js"></script>
+		<script type="text/javascript" src="assets/js/logo.js"></script>		
+		<script type="text/javascript" src="assets/js/map_weather.js"></script>		
 	</body>
 </html>       
