@@ -12,6 +12,7 @@
 var fallback_lng=12.501827;
 var fallback_lat=41.900993;
 var token;
+var tpl_results=$("#tpl_results").html();
 var tpl_hourly_detail=$("#tpl_hourly_detail").html();
 var tpl_daily_detail=$("#tpl_daily_detail").html();
 
@@ -47,7 +48,9 @@ function showDailyDetails() {
 	$("#daily_details").show();
 }
 
-// azione!
+function refreshWeather() {}
+
+/* azione! */
 $(function() {
 	var loader_skycons = new Skycons({"color": "#ccc"}); // icone					
 	loader_skycons.add("loader_icon","fog");
@@ -74,23 +77,29 @@ $(function() {
 
 /* visualizzazione meteo */
 function displayWeather (meteo,luogo) {
-	// sommario
-	$("#luogo").html(luogo);
-	$("#summary").html(meteo.currently.summary);
-	$("#temperature").html(meteo.currently.temperature); // aggiungere cambio colore con temperatura
-	$("#hourly").html(meteo.hourly.summary);
-	$("#daily").html(meteo.daily.summary);	
-	var skycons = new Skycons({"color": "black"}); // icone					
+ 	// init icone
+	var skycons = new Skycons({"color": "black"},{"resizeClear": true}); 	
+	// sommario meteo
+	var results=tpl_results;
+	results=results.replace("%luogo%",luogo);
+	results=results.replace("%summary%",meteo.currently.summary);
+	results=results.replace("%temperature%",meteo.currently.temperature);  // aggiungere cambio colore con temperatura
+	results=results.replace("%hourly%",meteo.hourly.summary); 
+	results=results.replace("%daily%",meteo.daily.summary); 
+	results=results.replace("%latitude%",meteo.latitude); 
+	results=results.replace("%longitude%",meteo.longitude); 
+	// visualizzo
+	$("#results_loader").hide();
+	$("#results").append(results);
+	// aggiungo icone				
 	skycons.add("icon", meteo.currently.icon);
 	skycons.add("icon_hourly", meteo.hourly.icon);
 	skycons.add("icon_daily", meteo.daily.icon);
-	$("#results_loader").hide();
-	$("#results").show();
+	// azzero dettagli
 	$("#hourly_details").hide();
 	$("#daily_details").hide();
 	$("#hourly_details_list").html("");
 	$("#daily_details_list").html("");
-
 	// dettagli orari
 	var hourly_details=meteo.hourly.data;
 	$.each(hourly_details,function(index,value) {
@@ -106,10 +115,8 @@ function displayWeather (meteo,luogo) {
 			detail=detail.replace("%precipIntensity%",value.precipIntensity);
 			$("#hourly_details_list").append(detail);
 			skycons.add("icon_hourly_detail_"+index,value.icon);
-			skycons.play(); // attivo tutte le icone, anche quelle del sommario
 		}
 	});
-
 	// dettagli giorni
 	var daily_details=meteo.daily.data;
 	$.each(daily_details,function(index,value) {
@@ -130,9 +137,10 @@ function displayWeather (meteo,luogo) {
 			detail=detail.replace("%precipIntensity%",value.precipIntensity);
 			$("#daily_details_list").append(detail);
 			skycons.add("icon_daily_detail_"+index,value.icon);
-			skycons.play(); // attivo tutte le icone, anche quelle del sommario
 		}
 	});
+	// attivo animazioni icone
+	skycons.play();
 }		
 
 /* darksky meteo call */
@@ -202,9 +210,8 @@ function build(token) {
 			map.getSource('single-point').setData(luogo.geometry);	
 			// chiamo darksky					 
 			askWeather(lng,lat,function(meteo){
-				if (meteo!=="error") {	
-					$("#luogo").html(luogo.place_name);									
-					displayWeather(meteo);
+				if (meteo!=="error") {									
+					displayWeather(meteo,luogo.place_name);
 				}else{
 					console.log("Errore meteo");
 				}
@@ -228,9 +235,8 @@ function build(token) {
 			map.getSource('single-point').setData(luogo.geometry);	
 			// chiamo darksky					 
 			askWeather(lng,lat,function(meteo){
-				if (meteo!=="error") {	
-					$("#luogo").html(luogo.place_name);									
-					displayWeather(meteo);
+				if (meteo!=="error") {									
+					displayWeather(meteo,luogo.place_name);
 				}else{
 					console.log("Errore meteo");
 				}
@@ -264,9 +270,8 @@ function build(token) {
 					map.getSource('single-point').setData(luogo.geometry);
 					// chiamo darksky
 					askWeather(lng,lat,function(meteo){
-						if (meteo!=="error") {	
-							$("#luogo").html(luogo.place_name);									
-							displayWeather(meteo);
+						if (meteo!=="error") {									
+							displayWeather(meteo,luogo.place_name);
 						}else{
 							console.log("Errore meteo");
 						}
@@ -295,9 +300,8 @@ function build(token) {
 					map.getSource('single-point').setData(luogo.geometry);
 					// chiamo darksky
 					askWeather(lng,lat,function(meteo){
-						if (meteo!=="error") {	
-							$("#luogo").html(luogo.place_name);									
-							displayWeather(meteo);
+						if (meteo!=="error") {									
+							displayWeather(meteo,luogo.place_name);
 						}else{
 							console.log("Errore meteo");
 						}

@@ -11,6 +11,9 @@ div.title {
 	width:100%;
 	height:400px;
 }
+#results {
+	position:relative;
+}
 #results .media, #hourly_details .media, #daily_details .media {
 	border: 1px solid #ddd;
 }
@@ -25,6 +28,19 @@ div.title {
 }
 #results canvas {
 	vertical-align: middle;
+}
+#refresh_weather {
+	position:absolute;
+	top:0;
+	right:0;
+	padding: 3px 7px;
+	border: 1px solid #ddd;
+	font-size: 85%;
+	color:#bbb;
+}
+#refresh_weather:hover {
+	color:#337ab7;
+	background-color: #eee;
 }
 
 /* loader */

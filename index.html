@@ -8,7 +8,10 @@
 		<!-- mapbox geocoder css-->
 		<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.css" type="text/css">
 		<!-- bootstrap css -->
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">	
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- fontawesome -->
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 		<link href="https://fonts.googleapis.com/css?family=Holtwood+One+SC" rel="stylesheet">
 		<link rel="stylesheet" href="assets/css/style.css" type="text/css">
 	</head>
@@ -42,21 +45,7 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
-							<div id="results" style="display:none">
-								<div class="media">
-								  <div class="media-left media-middle bg-info text-center">
-								    <canvas id="icon" width="45" height="45"></canvas>
-								    <span id="summary" style="font-weight: bold"></span><br />
-									<span id="temperature" style="font-weight: bold"></span>°C<br />
-								  </div>
-								  <div class="media-body">
-								    <h4 class="media-heading" id="luogo"></h4>
-								   
-									<span><strong>Prossime ore:</strong> </span><canvas id="icon_hourly" width="16" height="16"></canvas> <span id="hourly"></span> <a href="#" onClick="showHourlyDetails()">Dettagli</a><br />
-									<span><strong>Prossimi giorni: </strong></span><canvas id="icon_daily" width="16" height="16"></canvas> <span id="daily"></span> <a href="#" onClick="showDailyDetails()">Dettagli</a>
-								  </div>
-								</div>			        	
-							</div>	
+							<div id="results"></div>	
 						</div>
 						
 						<!-- dettagli orari -->
@@ -66,23 +55,7 @@
 								<div class="title bg-warning">
 									<h4>Prossime 24 ore</h4>
 								</div>
-								<div id="hourly_details_list">
-									<!-- template ora -->
-									<div id="tpl_hourly_detail" style="display:none">
-										<div class="media">
-										  <div class="media-left media-middle text-center">
-										    <canvas id="icon_hourly_detail_%index%" width="20" height="20"></canvas>
-										    <span style="font-weight: bold">%time%</span><br />
-										  </div>
-										  <div class="media-body">
-										    <h4 class="media-heading">%summary%</h4>
-										    <p>Temperatura: %temperature% °C | Temperatura percepita: %apparentTemperature% °C | Probabilità pioggia: %precipProbability%% | Intensità pioggia: %precipIntensity%mm
-										    </p>
-										  </div>
-										</div>	
-									</div>
-									<!-- fine template ora -->
-								</div>	
+								<div id="hourly_details_list"></div>	
 							</div>
 						</div>
 
@@ -93,31 +66,66 @@
 								<div class="title bg-warning">
 									<h4>Prossimi 7 giorni</h4>
 								</div>
-								<div id="daily_details_list">
-									<!-- template giorno -->
-									<div id="tpl_daily_detail" style="display:none">
-										<div class="media">
-										  <div class="media-left media-middle text-center">
-										    <span style="font-weight: bold">%day%</span><br />
-										    <canvas id="icon_daily_detail_%index%" width="25" height="25"></canvas>
-										    <span style="font-weight: bold">%date%</span><br />
-										  </div>
-										  <div class="media-body">
-										    <h4 class="media-heading">%summary%</h4>
-										    <p>Minima: %temperatureMin% °C | Massima: %temperatureMax% °C | Minima percepita: %apparentTemperatureMin% °C | Massima percepita: %apparentTemperatureMax% °C | Probabilità pioggia: %precipProbability%% | Intensità pioggia: %precipIntensity%mm
-										    </p>
-										  </div>
-										</div>	
-									</div>
-									<!-- fine template ora -->
-								</div>	
+								<div id="daily_details_list"></div>	
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-        
+
+		<!-- template sommario risultati -->
+		<div id="tpl_results" style="display:none">
+			<div class="media">
+			  <div class="media-left media-middle bg-info text-center">
+			    <canvas id="icon" width="45" height="45"></canvas>
+			    <span style="font-weight: bold">%summary%</span><br />
+				<span style="font-weight: bold">%temperature%</span>°C<br />
+			  </div>
+			  <div class="media-body">
+			    <h4 class="media-heading">%luogo%</h4>
+				<span><strong>Prossime ore:</strong> </span><canvas id="icon_hourly" width="16" height="16"></canvas> <span>%hourly%</span> <a href="#" onClick="showHourlyDetails()">Dettagli</a><br />
+				<span><strong>Prossimi giorni: </strong></span><canvas id="icon_daily" width="16" height="16"></canvas> <span>%daily%</span> <a href="#" onClick="showDailyDetails()">Dettagli</a>
+			  </div>
+			  <a id="btn_refresh_weather" href="#" onclick="refreshWeather(%latitude%,%longitude%)">
+				  <div id="refresh_weather">
+				  	<i class="fa fa-refresh fa-fw"></i> Aggiorna meteo
+				  </div>
+			  </a> 	
+			</div>	
+		</div>		
+
+        <!-- template ora -->
+		<div id="tpl_hourly_detail" style="display:none">
+			<div class="media">
+			  <div class="media-left media-middle text-center">
+			    <canvas id="icon_hourly_detail_%index%" width="20" height="20"></canvas>
+			    <span style="font-weight: bold">%time%</span><br />
+			  </div>
+			  <div class="media-body">
+			    <h4 class="media-heading">%summary%</h4>
+			    <p>Temperatura: %temperature% °C | Temperatura percepita: %apparentTemperature% °C | Probabilità pioggia: %precipProbability%% | Intensità pioggia: %precipIntensity%mm
+			    </p>
+			  </div>
+			</div>	
+		</div>
+
+		<!-- template giorno -->
+		<div id="tpl_daily_detail" style="display:none">
+			<div class="media">
+			  <div class="media-left media-middle text-center">
+			    <span style="font-weight: bold">%day%</span><br />
+			    <canvas id="icon_daily_detail_%index%" width="25" height="25"></canvas>
+			    <span style="font-weight: bold">%date%</span><br />
+			  </div>
+			  <div class="media-body">
+			    <h4 class="media-heading">%summary%</h4>
+			    <p>Minima: %temperatureMin% °C | Massima: %temperatureMax% °C | Minima percepita: %apparentTemperatureMin% °C | Massima percepita: %apparentTemperatureMax% °C | Probabilità pioggia: %precipProbability%% | Intensità pioggia: %precipIntensity%mm
+			    </p>
+			  </div>
+			</div>	
+		</div>
+		
 		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>	
 		<!-- bootstrap js -->
@@ -128,7 +136,8 @@
 		<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.0/mapbox-gl-geocoder.min.js"></script>
 		<!-- skycons -->
 		<script type="text/javascript" src="assets/js/skycons.js"></script>
-		<script type="text/javascript" src="assets/js/logo.js"></script>		
+		<script type="text/javascript" src="assets/js/animations.js"></script>		
 		<script type="text/javascript" src="assets/js/map_weather.js"></script>		
 	</body>
 </html>       
+
