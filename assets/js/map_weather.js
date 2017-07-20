@@ -243,7 +243,7 @@ function build(token) {
 		        "type": "circle",
 		        "paint": {
 		            "circle-radius": 10,
-		            "circle-color": "#007cbf"
+		            "circle-color": "#fea500"
 		        }
 		    });
 		    // chiamo geocode mapbox
