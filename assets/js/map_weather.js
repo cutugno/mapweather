@@ -11,11 +11,13 @@
 // coordinate default per centro mappa
 var fallback_lng=12.501827;
 var fallback_lat=41.900993;
-var token;
+var token; // token mapbox
+// template risultati, renderizzati in showWeather
 var tpl_results=$("#tpl_results").html();
 var tpl_hourly_detail=$("#tpl_hourly_detail").html();
 var tpl_daily_detail=$("#tpl_daily_detail").html();
 
+// conversioni date
 function unixToTime(ts) {
 	var date = new Date(ts*1000); // in millisecondi
 	var hours = date.getHours();
@@ -23,7 +25,6 @@ function unixToTime(ts) {
 	var formatted_time=hours+":"+minutes;
 	return formatted_time;
 }
-
 function unixToDate(ts) {
 	var date = new Date(ts*1000);
 	var day = date.getDate();
@@ -32,7 +33,6 @@ function unixToDate(ts) {
 	var formatted_date=day+"/"+month;
 	return formatted_date;
 }
-
 function unixToDay(ts) {
 	var date = new Date(ts*1000);
 	var daynum = date.getDay();
@@ -40,18 +40,19 @@ function unixToDay(ts) {
 	return day_mapper[daynum];
 }
 
+// visualizzazione dettagli
 function showHourlyDetails() {
 	$("#daily_details").hide();
 	$("#hourly_details").show();
 }
-
 function showDailyDetails() {
 	$("#hourly_details").hide();
 	$("#daily_details").show();
 }
 
+// aggiorno meteo location attuale
 function refreshWeather(lng,lat) {
-	// chiamata per eliminare dalla cache specifico valore
+	// elimino dalla cache specifico valore
 	$("#hourly_details").hide();
 	$("#daily_details").hide();
 	var url="server/?refresh";
@@ -59,7 +60,8 @@ function refreshWeather(lng,lat) {
 	$.post(url,dati,function(resp){
 		console.log(resp);
 	});
-	var luogo=$("#luogo").html();
+	// chiamo darksky
+	var luogo=$("#luogo").html(); // location attuale
 	$("#results").html("");
 	$("#results_loader").show();
 	askWeather(lng,lat,function(meteo){
