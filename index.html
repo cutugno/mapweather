@@ -19,21 +19,25 @@
 	
 	<body>
 		<div class="container-fluid">
+			<!-- logo -->
 			<div class="row">
 				<div class="col-xs-12">
 					<img id="logo" class="spin" src="assets/img/sunshine.png">
 					<span id="txtlogo">MAPWEATHER
 				</div>
 			</div>
+			<!-- / logo -->
 			<div class="row spacer"></div>
 			<div class="row">
+				<!-- mappa -->
 				<div class="col-md-6">
 					<div id="map"></div>
-				</div>
+				</div>	
+				<!-- / mappa -->			
 				<div class="col-md-6">
 					<div class="spacer hidden-md hidden-lg"></div>
+					<!-- loader risultati -->
 					<div class="row" id="results_loader">
-
 						<div class="media">
 						  <div class="media-right media-middle">
 						    <canvas id="loader_icon" width="30" height="30"></canvas>
@@ -43,12 +47,14 @@
 						  </div>
 						</div>
 					</div>
+					<!-- / loader risultati -->
 					<div class="row">
+						<!-- risultati (tpl_results) -->
 						<div class="col-xs-12">
 							<div id="results"></div>	
 						</div>
 						
-						<!-- dettagli orari -->
+						<!-- dettagli orari (tpl_hourly_detail) -->
 						<div class="col-xs-12">							
 							<div id="hourly_details" style="display:none">
 								<div class="spacer"></div>
