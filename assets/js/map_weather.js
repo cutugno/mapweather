@@ -50,6 +50,12 @@ function showDailyDetails() {
 }
 
 function refreshWeather(lng,lat) {
+	// chiamata per eliminare dalla cache specifico valore
+	var url="server/?refresh";
+	var dati="lng="+lng+"&lat="+lat;
+	$.post(url,dati,function(resp){
+		console.log(resp);
+	});
 	var luogo=$("#luogo").html();
 	$("#results").html("");
 	$("#results_loader").show();

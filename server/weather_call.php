@@ -1,8 +1,7 @@
 <?php
 
-echo file_get_contents("weather.json");exit();
+// echo file_get_contents("weather.json");exit();
 
-/*
 if (!isset($_POST)) exit("Accesso non consentito");
 
 // init cache
@@ -39,6 +38,5 @@ if ($result) {
 	http_response_code(500);
 	echo $error;
 }
-*/
 
 ?>

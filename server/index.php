@@ -20,6 +20,10 @@
 		case "token":
 			require_once"token_call.php";
 			break;
+
+		case "refresh":
+			require_once"refresh_call.php";
+			break;
 	}
 
 	function writelog($content) {
