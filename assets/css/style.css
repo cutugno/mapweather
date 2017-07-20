@@ -1,16 +1,18 @@
+/* generici */
 body {
 	margin-top:10px;
 }
 div.spacer {
 	margin-top:10px;
 }
-div.title {
-	padding:10px;
-}
+
+/* mappa */
 #map {
 	width:100%;
 	height:400px;
 }
+
+/* risultati e dettagli */
 #results {
 	position:relative;
 }
@@ -25,6 +27,9 @@ div.title {
 }
 #hourly_details .media-left, #daily_details .media-left {
 	padding-top:0;
+}
+div.detail_title {
+	padding:10px;
 }
 #results canvas {
 	vertical-align: middle;
