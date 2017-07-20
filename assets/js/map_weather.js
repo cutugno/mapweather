@@ -134,7 +134,7 @@ function displayWeather (meteo,luogo) {
 			detail=detail.replace("%summary%",value.summary);
 			detail=detail.replace("%temperature%",value.temperature);
 			detail=detail.replace("%apparentTemperature%",value.apparentTemperature);
-			detail=detail.replace("%precipProbability%",value.precipProbability);
+			detail=detail.replace("%precipProbability%",value.precipProbability*100);
 			detail=detail.replace("%precipIntensity%",value.precipIntensity);
 			$("#hourly_details_list").append(detail);
 			skycons.add("icon_hourly_detail_"+index,value.icon);
@@ -156,7 +156,7 @@ function displayWeather (meteo,luogo) {
 			detail=detail.replace("%apparentTemperature%",value.apparentTemperature);
 			detail=detail.replace("%apparentTemperatureMin%",value.apparentTemperatureMin);
 			detail=detail.replace("%apparentTemperatureMax%",value.apparentTemperatureMax);
-			detail=detail.replace("%precipProbability%",value.precipProbability);
+			detail=detail.replace("%precipProbability%",value.precipProbability*100);
 			detail=detail.replace("%precipIntensity%",value.precipIntensity);
 			$("#daily_details_list").append(detail);
 			skycons.add("icon_daily_detail_"+index,value.icon);
