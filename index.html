@@ -78,7 +78,6 @@
 		<div id="tpl_results" style="display:none">
 			<div class="media">
 			  <div class="media-left media-middle bg-info text-center">
-			  	<span style="font-weight: bold">%date% %time%</span><br />
 			    <canvas id="icon" width="45" height="45"></canvas>
 			    <span style="font-weight: bold">%summary%</span><br />
 				<span style="font-weight: bold">%temperature%</span>°C<br />
@@ -86,10 +85,12 @@
 			  <div class="media-body">
 			    <h4 class="media-heading" id="luogo">%luogo%</h4>
 				<span><strong>Prossime ore:</strong> </span><canvas id="icon_hourly" width="16" height="16"></canvas> <span>%hourly%</span> <a href="#" onClick="showHourlyDetails()">Dettagli</a><br />
-				<span><strong>Prossimi giorni: </strong></span><canvas id="icon_daily" width="16" height="16"></canvas> <span>%daily%</span> <a href="#" onClick="showDailyDetails()">Dettagli</a>
+				<strong>Prossimi giorni: </strong></span><canvas id="icon_daily" width="16" height="16"></canvas> <span>%daily%</span> <a href="#" onClick="showDailyDetails()">Dettagli</a><br />
+				<small>Ultimo rilevamento: %date% %time%</small>
 			  </div>
+			  
 			  <a id="btn_refresh_weather" href="#" onclick="refreshWeather(%longitude%,%latitude%)">
-				  <div id="refresh_weather">
+				  <div id="refresh_weather">				  	
 				  	<i class="fa fa-refresh fa-fw"></i> Aggiorna meteo
 				  </div>
 			  </a> 	

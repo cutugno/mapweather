@@ -28,6 +28,7 @@ function unixToDate(ts) {
 	var date = new Date(ts*1000);
 	var day = date.getDate();
 	var month = date.getMonth() + 1;
+	if (month < 10) month="0"+month;
 	var formatted_date=day+"/"+month;
 	return formatted_date;
 }
@@ -51,6 +52,8 @@ function showDailyDetails() {
 
 function refreshWeather(lng,lat) {
 	// chiamata per eliminare dalla cache specifico valore
+	$("#hourly_details").hide();
+	$("#daily_details").hide();
 	var url="server/?refresh";
 	var dati="lng="+lng+"&lat="+lat;
 	$.post(url,dati,function(resp){
