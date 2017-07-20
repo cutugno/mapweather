@@ -47,13 +47,14 @@ function showDailyDetails() {
 	$("#daily_details").show();
 }
 
+// azione!
 $(function() {
 	if (navigator.geolocation){
 		// leggo token...
 		askToken(function(token){
 			if (token!=="error") {
 				// ... e vai!
-				build(token);
+				build(token); // geolocalizzo via browser, creo mappa e marker, carico meteo
 			}else{
 				// no token
 				var msg="Errore token";
@@ -179,19 +180,52 @@ function build(token) {
 			center: [lng,lat], // centro su utente o valori fallback
 			zoom: 13
 		});
-		// input geocoding
+		// init input geocoding
 		var geocoder=new MapboxGeocoder({
 			accessToken: mapboxgl.accessToken
 		});
 		map.addControl(geocoder);
 		
-		// pulsante geolocation
+		// submit input geocoding
+		geocoder.on('result', function(ev) {
+			var luogo=ev.result; // contiene info sul luogo (https://www.mapbox.com/api-documentation/?language=JavaScript#response-format)
+			var lng=luogo.center[0];
+			var lat=luogo.center[1];
+			map.getSource('single-point').setData(luogo.geometry);	
+			// chiamo darksky					 
+			askWeather(lng,lat,function(meteo){
+				if (meteo!=="error") {	
+					$("#luogo").html(luogo.place_name);									
+					displayWeather(meteo);
+				}else{
+					console.log("Errore meteo");
+				}
+			}); 			
+		})	 
+		
+		// init pulsante geolocation
 		var geolocate_control=new mapboxgl.GeolocateControl({
 			positionOptions: {
 				enableHighAccuracy: true
 			}
 		});
-		map.addControl(geolocate_control);					
+		map.addControl(geolocate_control);
+		
+		// click su pulsante geolocation
+		geolocate_control.on('geolocate', function(position) {
+			var lng=position.coords.longitude;
+			var lat=position.coords.latitude;
+			map.getSource('single-point').setData(luogo.geometry);	
+			// chiamo darksky					 
+			askWeather(lng,lat,function(meteo){
+				if (meteo!=="error") {	
+					$("#luogo").html(luogo.place_name);									
+					displayWeather(meteo);
+				}else{
+					console.log("Errore meteo");
+				}
+			}); 			
+		});
 
 		// set marker e prima chiamata 
 		map.on('load', function() {
@@ -241,7 +275,7 @@ function build(token) {
 				center: [lng,lat],
 				zoom: 13
 			});
-			// chiamo geocode mapb
+			// chiamo geocode map
 			var data=askGeocoding(lng,lat,function(data){	
 				if (data!=="error")	{
 					var luogo=data.features[0];							
@@ -261,42 +295,9 @@ function build(token) {
 				}
 			}); 						
 		});
-
-		// submit geocoding
-		geocoder.on('result', function(ev) {
-			var luogo=ev.result; // contiene info sul luogo (https://www.mapbox.com/api-documentation/?language=JavaScript#response-format)
-			var lng=luogo.center[0];
-			var lat=luogo.center[1];
-			map.getSource('single-point').setData(luogo.geometry);	
-			// chiamo darksky					 
-			askWeather(lng,lat,function(meteo){
-				if (meteo!=="error") {	
-					$("#luogo").html(luogo.place_name);									
-					displayWeather(meteo);
-				}else{
-					console.log("Errore meteo");
-				}
-			}); 			
-		})	 
-
-		// click su geolocation
-		geolocate_control.on('geolocate', function(position) {
-			var lng=position.coords.longitude;
-			var lat=position.coords.latitude;
-			map.getSource('single-point').setData(luogo.geometry);	
-			// chiamo darksky					 
-			askWeather(lng,lat,function(meteo){
-				if (meteo!=="error") {	
-					$("#luogo").html(luogo.place_name);									
-					displayWeather(meteo);
-				}else{
-					console.log("Errore meteo");
-				}
-			}); 			
-		});
 	};
 
-	/* geolocalizzazione */
+	/* init geolocalizzazione iniziale browser */
 	var geolocate_options = {
 	  enableHighAccuracy: true,
 	  timeout: 5000,
@@ -311,13 +312,11 @@ function build(token) {
 	};
 
 	function geolocateError(err) {
-	 	if (err.code == err.PERMISSION_DENIED) {
 	    	console.log("Geolocalizzazione rifiutata, uso valori di default");
- 			createMap(fallback_lng,fallback_lat,token); // init mappa con centro default
-		};
+ 		createMap(fallback_lng,fallback_lat,token); // init mappa con centro default
 	};
 
-	/* geolocalizzazione browser */
+	/* eseguo geolocalizzazione browser */
 	navigator.geolocation.getCurrentPosition(geolocateSuccess, geolocateError, geolocate_options);
 }
 			
