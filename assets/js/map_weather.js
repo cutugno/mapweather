@@ -19,7 +19,8 @@ var tpl_daily_detail=$("#tpl_daily_detail").html();
 function unixToTime(ts) {
 	var date = new Date(ts*1000); // in millisecondi
 	var hours = date.getHours();
-	var formatted_time=hours+":00";
+	var minutes = date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes();
+	var formatted_time=hours+":"+minutes;
 	return formatted_time;
 }
 
@@ -48,7 +49,19 @@ function showDailyDetails() {
 	$("#daily_details").show();
 }
 
-function refreshWeather() {}
+function refreshWeather(lng,lat) {
+	var luogo=$("#luogo").html();
+	$("#results").html("");
+	$("#results_loader").show();
+	askWeather(lng,lat,function(meteo){
+		if (meteo!=="error") {									
+			displayWeather(meteo,luogo);
+		}else{
+			console.log("Errore meteo");
+		}
+	}); 
+
+}
 
 /* azione! */
 $(function() {
@@ -81,6 +94,10 @@ function displayWeather (meteo,luogo) {
 	var skycons = new Skycons({"color": "black"},{"resizeClear": true}); 	
 	// sommario meteo
 	var results=tpl_results;
+	var date=unixToDate(meteo.currently.time);
+	var time=unixToTime(meteo.currently.time);
+	results=results.replace("%date%",date);
+	results=results.replace("%time%",time);
 	results=results.replace("%luogo%",luogo);
 	results=results.replace("%summary%",meteo.currently.summary);
 	results=results.replace("%temperature%",meteo.currently.temperature);  // aggiungere cambio colore con temperatura
@@ -202,7 +219,7 @@ function build(token) {
 
 		// submit input geocoding
 		geocoder.on('result', function(ev) {
-			$("#results").hide();
+			$("#results").html("");
 			$("#results_loader").show();
 			var luogo=ev.result; // contiene info sul luogo (https://www.mapbox.com/api-documentation/?language=JavaScript#response-format)
 			var lng=luogo.center[0];
@@ -228,7 +245,7 @@ function build(token) {
 		
 		// click su pulsante geolocation
 		geolocate_control.on('geolocate', function(position) {
-			$("#results").hide();
+			$("#results").html("");
 			$("#results_loader").show();
 			var lng=position.coords.longitude;
 			var lat=position.coords.latitude;
@@ -284,7 +301,7 @@ function build(token) {
 
 		// click su mappa
 		map.on('click', function (e) {	
-			$("#results").hide();
+			$("#results").html("");
 			$("#results_loader").show();				
 			var lat=e.lngLat.lat;
 			var lng=e.lngLat.lng;						
