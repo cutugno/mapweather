@@ -27,6 +27,16 @@ div.title {
 	vertical-align: middle;
 }
 
+/* loader */
+#loader_icon {
+	margin-right: 5px;
+}
+#results_loader span {
+	font-family: 'Holtwood One SC', serif;
+	font-size:20px;
+	color:#ccc;
+}
+
 /* logo */
 #logo {
 	float:left;

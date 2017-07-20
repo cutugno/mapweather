@@ -49,6 +49,9 @@ function showDailyDetails() {
 
 // azione!
 $(function() {
+	var loader_skycons = new Skycons({"color": "#ccc"}); // icone					
+	loader_skycons.add("loader_icon","fog");
+	loader_skycons.play();
 	if (navigator.geolocation){
 		// leggo token...
 		askToken(function(token){
@@ -81,6 +84,7 @@ function displayWeather (meteo,luogo) {
 	skycons.add("icon", meteo.currently.icon);
 	skycons.add("icon_hourly", meteo.hourly.icon);
 	skycons.add("icon_daily", meteo.daily.icon);
+	$("#results_loader").hide();
 	$("#results").show();
 	$("#hourly_details").hide();
 	$("#daily_details").hide();
