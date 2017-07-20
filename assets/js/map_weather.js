@@ -190,8 +190,12 @@ function build(token) {
 		});
 		map.addControl(geocoder);
 		
+		// AZIONI
+
 		// submit input geocoding
 		geocoder.on('result', function(ev) {
+			$("#results").hide();
+			$("#results_loader").show();
 			var luogo=ev.result; // contiene info sul luogo (https://www.mapbox.com/api-documentation/?language=JavaScript#response-format)
 			var lng=luogo.center[0];
 			var lat=luogo.center[1];
@@ -217,6 +221,8 @@ function build(token) {
 		
 		// click su pulsante geolocation
 		geolocate_control.on('geolocate', function(position) {
+			$("#results").hide();
+			$("#results_loader").show();
 			var lng=position.coords.longitude;
 			var lat=position.coords.latitude;
 			map.getSource('single-point').setData(luogo.geometry);	
@@ -272,7 +278,9 @@ function build(token) {
 		});
 
 		// click su mappa
-		map.on('click', function (e) {					
+		map.on('click', function (e) {	
+			$("#results").hide();
+			$("#results_loader").show();				
 			var lat=e.lngLat.lat;
 			var lng=e.lngLat.lng;						
 			map.flyTo({
