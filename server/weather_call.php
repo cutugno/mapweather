@@ -16,7 +16,7 @@ $lat=round($_POST['lat'],4);
 $cache_key="weather_$lng_$lat";
 if ($cached=$cache->get($cache_key)) {
 	echo $cached;
-	write_log("caricati dati coordinate ($lng,$lat) da cache");
+	write_log("caricati da cache dati meteo coordinate ($lng,$lat)");
 	exit();
 }
 
@@ -39,11 +39,11 @@ if ($result) {
 	// salvo in cache
 	$cache->set($cache_key,$result,1800);
 	echo $result;
-	write_log("caricati dati da darksky con coordinate($lng,$lat) e salvati in cache");
+	write_log("caricati da darksky e salvati in cache dati meteo coordinate ($lng,$lat)");
 }else{
 	http_response_code(500);
 	echo $error;
-	write_log("errore API darksky $error");
+	write_log("errore API darksky [$error]");
 }
 
 ?>

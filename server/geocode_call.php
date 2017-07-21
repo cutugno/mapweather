@@ -5,11 +5,16 @@ if (!isset($_POST)) exit("Accesso non consentito");
 // init cache
 $cache=new Memcached();
 $cache->addServer("127.0.0.1", 11211);
-$cache_key="geocode_".$_POST['lng']."_".$_POST['lat'];
+
+// approssimo cordinate a 4 cifre decimali
+$lng=round($_POST['lng'],4);
+$lat=round($_POST['lat'],4);
 
 // controllo risultato in cache
+$cache_key="geocode_$lng_$lat";
 if ($cached=$cache->get($cache_key)) {
 	echo $cached;
+	write_log("caricati da cache dati geocode coordinate ($lng,$lat)");
 	exit();
 }
 
@@ -32,10 +37,12 @@ if ($result) {
 	// salvo in cache
 	$cache->set($cache_key,$result,1800);
 	echo $result;
+	write_log("caricati da mapbox e salvati in cache dati geocode coordinate ($lng,$lat)");
 	 // contiene info su luogo (https://www.mapbox.com/api-documentation/?language=JavaScript#response-format)		
 }else{
 	http_response_code(500);
 	echo $error;
+	write_log("errore API mapbox [$error]");
 }
 
 ?>
