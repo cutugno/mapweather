@@ -8,9 +8,9 @@ if (!isset($_POST)) exit("Accesso non consentito");
 $cache=new Memcached();
 $cache->addServer("127.0.0.1", 11211);
 
-// approssimo cordinate a 4 cifre decimali
-$lng=round($_POST['lng'],4);
-$lat=round($_POST['lat'],4);
+// approssimo cordinate a 3 cifre decimali
+$lng=round($_POST['lng'],3);
+$lat=round($_POST['lat'],3);
 
 // controllo risultato in cache
 $cache_key="weather_$lng_$lat";
