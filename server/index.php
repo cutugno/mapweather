@@ -1,6 +1,16 @@
 <?php
 
-	if (!isset($_GET)) die();
+	function write_log($content) {
+		$userip=$_SERVER['REMOTE_ADDR'];
+		$ts=date("Y-m-d H:i:s");
+
+		$handle=fopen("log/mapweather.log","a+");
+		$content="$userip | $ts | $content\n";
+		fwrite($handle,$content);
+		fclose($handle);
+	}
+
+	if (!isset($_GET)) exit("Accesso non consentito");
 
 	$route=array_keys($_GET)[0];
 
@@ -28,16 +38,6 @@
 		case "info": // phpinfo
 			phpinfo();
 			break;
-	}
-
-	function write_log($content) {
-		$userip=$_SERVER['REMOTE_ADDR'];
-		$ts=date("Y-m-d H:i:s");
-		
-		$handle=fopen("log/mapweather.log","a+");
-		$content="$userip | $ts | $content\n";
-		fwrite($handle,$content);
-		fclose($handle);
 	}
 
 ?>
