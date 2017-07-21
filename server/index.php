@@ -26,13 +26,16 @@
 			break;
 
 		case "info": // phpinfo
-			require_once "fetch_call.php";
 			phpinfo();
 			break;
 	}
 
-	function writelog($content) {
+	function write_log($content) {
+		$userip=$_SERVER['REMOTE_ADDR'];
+		$ts=date("Y-m-d H:i:s");
+		
 		$handle=fopen("log/mapweather.log","a+");
+		$content="$userip | $ts | $content\n";
 		fwrite($handle,$content);
 		fclose($handle);
 	}
