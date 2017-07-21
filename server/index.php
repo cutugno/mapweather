@@ -18,11 +18,16 @@
 			break;
 
 		case "token": // leggo token mapbox da file
-			require_once"token_call.php";
+			require_once "token_call.php";
 			break;
 
 		case "refresh": // aggiorno meteo
-			require_once"refresh_call.php";
+			require_once "refresh_call.php";
+			break;
+
+		case "info": // phpinfo
+			require_once "fetch_call.php";
+			phpinfo();
 			break;
 	}
 

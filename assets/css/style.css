@@ -36,6 +36,7 @@ div.detail_title {
 }
 #refresh_weather {
 	position:absolute;
+	margin-top:-23px;
 	top:0;
 	right:0;
 	padding: 3px 7px;
